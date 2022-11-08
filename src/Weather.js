@@ -26,6 +26,21 @@ export default class Weather {
             console.log(data);
             this.displayWeather(data);
         });
-
     };
+
+    displayWeather(data) {
+        const temp = data.data[0].temp;
+        document.querySelector(".weather__temp").innerText = temp + "°C";
+
+        const weather = data.data[0].weather.description;
+        document.querySelector(".weather__summary").innerText = weather;
+
+        const icon = data.data[0].weather.icon;
+        //create img element
+        const img = document.createElement("img");
+        //set src attribute
+        img.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`;
+        //append img to the DOM
+        document.querySelector(".weather__icon").appendChild(img);
+    }      
 };

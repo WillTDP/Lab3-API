@@ -1,7 +1,19 @@
 export default class Weather {
     constructor(api_key) {
         this.apiKey = api_key;
-        this.getLocation();
+
+        //check if there is data in localstorage
+            //check if data in localstorage is older than 10 minutes
+            if (localStorage.getItem("weather") &&
+                Date.now() - localStorage.getItem("timestamp") < 600000
+            ) {
+                //get data from localstorage
+                const data = JSON.parse(localStorage.getItem("weather"));
+                this.displayWeather(data);
+                console.log("cached");
+            } else {
+                this.getLocation();
+            }
     }
     
     getLocation() {        
@@ -24,9 +36,12 @@ export default class Weather {
         .then(response => response.json())
         .then((data) => {
             console.log(data);
-            this.displayWeather(data);
-        });
-    };
+            //save to localstorage
+            localStorage.setItem("weather", JSON.stringify(data));
+            //save timestamp
+            localStorage.setItem("timestamp", Date.now());
+        })
+    }
 
     displayWeather(data) {
         const temp = data.data[0].temp;

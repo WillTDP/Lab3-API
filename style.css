@@ -5,7 +5,7 @@
   }
   
   body {
-    background-color: rgb(233, 233, 35);
+    background-color: rgb(44, 41, 88);
   }
   .ad {
     position: absolute;
@@ -16,29 +16,28 @@
   
     transform: translate(-50%, -50%);
     background-color: rgb(117, 234, 255);
-  
 
   }
   .logo {
-    grid-column: 2/3;
-    grid-row: 3/4;
-    background-image: url(./assets/logo_decathlon.svg);
-    background-position: 50% 50%;
-    background-size: 70%;
-    margin-bottom: 10px;
+    align-self: center;
+    justify-self: center;
+    padding-left: 15px;
+    margin-top: 25px;
+    width: 70%;
+    height: 14.7%;
   }
   
   .weather__temp {
     align-self: center;
     justify-self: center;
     font-size: 16pt;
-    padding-left: 20px;
+    padding-left: 25px;
   }
   .weather__summary {
     align-self: center;
     justify-self: center;
     font-size: 12pt;
-    padding-left: 20px;
+    padding-left: 25px;
   }
 
 

@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    color: white;
+  }
+  
+  body {
+    background-color: rgb(233, 233, 35);
+  }
+  .ad {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 250px;
+  
+    transform: translate(-50%, -50%);
+    background-color: rgb(117, 234, 255);
+  
+
+  }
+  .logo {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    background-image: url(./assets/logo_decathlon.svg);
+    background-position: 50% 50%;
+    background-size: 70%;
+    margin-bottom: 10px;
+  }
+  
+  .weather__temp {
+    align-self: center;
+    justify-self: center;
+    font-size: 16pt;
+    padding-left: 20px;
+  }
+  .weather__summary {
+    align-self: center;
+    justify-self: center;
+    font-size: 12pt;
+    padding-left: 20px;
+  }
+
+
+
+  

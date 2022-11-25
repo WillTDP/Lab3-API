@@ -15,6 +15,18 @@ export default class Weather {
             } else {
                 this.getLocation();
             }
+        //get doctors
+        if (localStorage.getItem("doctors") &&
+            Date.now() - localStorage.getItem("timestamp") < 6
+        ) {
+            //get data from localstorage
+            const data = JSON.parse(localStorage.getItem("doctors"));
+            this.defineDoctors(data);
+            console.log("cached");
+        } else {
+            this.getDoctors();
+            console.log("not cached");
+        }
     }
     
     getLocation() {        
@@ -46,6 +58,19 @@ export default class Weather {
         })
     }
 
+    getDoctors() {
+        const url = 'https://api.catalogopolis.xyz/v1/doctors'
+        fetch(url)
+        .then(response => response.json())
+        .then((data) => {
+            //save to localstorage
+            localStorage.setItem("doctors", JSON.stringify(data));
+            //save timestamp
+            localStorage.setItem("timestamp", Date.now());
+            console.log(data);
+        })
+    }
+
     displayWeather(data) {
         const temp = data.current.temp_c;
         document.querySelector(".weather__temp").innerText = temp + "°C";
@@ -62,4 +87,37 @@ export default class Weather {
         //append img to the DOM
         document.querySelector(".weather__icon").appendChild(img);
     }      
+    defineDoctors(temp) {
+        let doctor;
+        if (temp < 5) {
+          doctor = "1";
+     
+        } if (temp < 10) {
+            doctor = "2";
+          }
+          if (temp < 15) {
+            doctor = "3";
+          }
+         else {
+          doctor = "12";
+        }
+        this.getDoctor(doctor);
+        console.log(doctor);
+      }
+      getDoctor(doctor) {
+        let url = doctors.doctor;
+        console.log(url);
+        fetch(url)
+          .then((res) => {
+            return res.json();
+          })
+          .then((json) => {
+            let doctor = json.data.Array[doctor].incarnation;
+            document.querySelector(".doctor__number").src = doctor;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
 };

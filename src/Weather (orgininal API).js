@@ -30,10 +30,9 @@ export default class Weather {
     getWeather(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        console.log("lat");
         
         // Get the weather from the API
-        const url = `https://api.weatherapi.com/v1/current.json?key=${this.apiKey}&q=${lat},${lon}&aqi=no`
+        const url = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${this.apiKey}`
         
         fetch(url)
         .then(response => response.json())
@@ -47,18 +46,17 @@ export default class Weather {
     }
 
     displayWeather(data) {
-        const temp = data.current.temp_c;
+        const temp = data.data[0].temp;
         document.querySelector(".weather__temp").innerText = temp + "°C";
-        console.log(temp);
 
-        const weather = data.current.condition.text;
+        const weather = data.data[0].weather.description;
         document.querySelector(".weather__summary").innerText = weather;
 
-        const icon = data.current.condition.icon;
+        const icon = data.data[0].weather.icon;
         //create img element
         const img = document.createElement("img");
         //set src attribute
-        img.src = icon;
+        img.src = `https://www.weatherbit.io/static/img/icons/${icon}.png`;
         //append img to the DOM
         document.querySelector(".weather__icon").appendChild(img);
     }      

@@ -117,9 +117,9 @@ export default class Weather {
           })
           .then((json) => {
             console.log(json);
-            let dwdata = json.Array[0].id;
+            let dwdata = json.incarnation;
             console.log(dwdata);
-            document.querySelector(".doctor__number").src = dwdata
+            document.querySelector(".doctor__number").innerText = dwdata
           })
           .catch((err) => {
             console.log(err);

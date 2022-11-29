@@ -41,6 +41,12 @@
     font-size: 12pt;
     padding-left: 25px;
   }
+  .doctor__img {
+    position: relative;
+    left: 75%;
+    top: -60%;
+
+  }
   .doctor__number {
     font-size: 13pt;
     position: absolute;

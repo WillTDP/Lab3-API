@@ -120,10 +120,22 @@ export default class Weather {
             let dwdata = json.incarnation;
             console.log(dwdata);
             document.querySelector(".doctor__number").innerText = dwdata
+
+            const icon = `assets/${doctor}.png`;
+            console.log(icon);
+            const img = document.createElement("img");
+            img.src = icon;
+            document.querySelector(".doctor__img").appendChild(img);
+            img.setAttribute(
+                'style',
+                'width: 20%; height: 20%;', 
+              );
+
           })
           .catch((err) => {
             console.log(err);
           });
+         
       }
 
 };

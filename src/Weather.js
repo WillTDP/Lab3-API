@@ -1,7 +1,7 @@
 export default class Weather {
     constructor(api_key) {
         this.apiKey = api_key;
-        console.log(api_key);
+        //console.log(api_key);
 
         //check if there is data in localstorage
             //check if data in localstorage is older than 10 minutes
@@ -11,29 +11,31 @@ export default class Weather {
                 //get data from localstorage
                 const data = JSON.parse(localStorage.getItem("weather"));
                 this.displayWeather(data);
-                console.log("cached");
+                this.defineDoctors(data);
+               // console.log("cached");
             } else {
                 this.getLocation();
             }
-        //get doctors
+        /*//get doctors
         if (localStorage.getItem("doctors") &&
             Date.now() - localStorage.getItem("timestamp") < 6
         ) {
             //get data from localstorage
             const data = JSON.parse(localStorage.getItem("doctors"));
             this.defineDoctors(data);
-            console.log("cached");
+            //console.log("cached");
         } else {
+            this.defineDoctors();
             this.getDoctors();
-            console.log("not cached");
-        }
+            //console.log("not cached");
+        }*/
     }
     
     getLocation() {        
         // Get the location from the browser
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.getWeather.bind(this));
-            console.log("geolocation");
+            //console.log("geolocation");
         } else {
             alert("Geolocation is not supported by this browser.");
         };
@@ -42,7 +44,7 @@ export default class Weather {
     getWeather(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        console.log("lat");
+        //console.log("lat");
         
         // Get the weather from the API
         const url = `https://api.weatherapi.com/v1/current.json?key=${this.apiKey}&q=${lat},${lon}&aqi=no`
@@ -50,7 +52,7 @@ export default class Weather {
         fetch(url)
         .then(response => response.json())
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             //save to localstorage
             localStorage.setItem("weather", JSON.stringify(data));
             //save timestamp
@@ -58,23 +60,23 @@ export default class Weather {
         })
     }
 
-    getDoctors() {
+    /*getDoctors() {
         const url = 'https://api.catalogopolis.xyz/v1/doctors'
         fetch(url)
         .then(response => response.json())
-        .then((data) => {
+        .then((datas) => {
             //save to localstorage
-            localStorage.setItem("doctors", JSON.stringify(data));
+            localStorage.setItem("doctors", JSON.stringify(datas));
             //save timestamp
             localStorage.setItem("timestamp", Date.now());
-            console.log(data);
+            //console.log(data);
         })
-    }
+    }*/
 
     displayWeather(data) {
         const temp = data.current.temp_c;
         document.querySelector(".weather__temp").innerText = temp + "°C";
-        console.log(temp);
+        //console.log(temp);
 
         const weather = data.current.condition.text;
         document.querySelector(".weather__summary").innerText = weather;
@@ -87,33 +89,37 @@ export default class Weather {
         //append img to the DOM
         document.querySelector(".weather__icon").appendChild(img);
     }      
-    defineDoctors(temp) {
+    defineDoctors(data) {
+        console.log(data);
         let doctor;
-        if (temp < 5) {
+        if (data.current.temp_c < 5) {
           doctor = "1";
      
-        } if (temp < 10) {
+        } if (data.current.temp_c < 10) {
             doctor = "2";
           }
-          if (temp < 15) {
+          if (data.current.temp_c < 15) {
             doctor = "3";
           }
          else {
           doctor = "12";
         }
+        console.log(doctor + " " + "doctor");
         this.getDoctor(doctor);
-        console.log(doctor);
       }
       getDoctor(doctor) {
-        let url = doctors.doctor;
+        let url = `https://api.catalogopolis.xyz/v1/doctors/${doctor}`;
         console.log(url);
         fetch(url)
           .then((res) => {
+            //console.log(res);
             return res.json();
           })
           .then((json) => {
-            let doctor = json.data.Array[doctor].incarnation;
-            document.querySelector(".doctor__number").src = doctor;
+            console.log(json);
+            let dwdata = json.Array[0].id;
+            console.log(dwdata);
+            document.querySelector(".doctor__number").src = dwdata
           })
           .catch((err) => {
             console.log(err);

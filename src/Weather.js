@@ -158,7 +158,7 @@ export default class Weather {
             console.log(dwdata2);
             document.querySelector(".doctor__name").innerText = dwdata2
 
-            const icon = `public/assets/${doctor}.png`;
+            const icon = `assets/${doctor}.png`;
             console.log(icon);
             const img = document.createElement("img");
             img.src = icon;

@@ -1,14 +1,14 @@
 @font-face {
     font-family:"Axiforma_Book";
-    src:url("public/assets/AxiformaBook.otf") format("opentype");
+    src:url("assets/AxiformaBook.otf") format("opentype");
 }
 @font-face {
     font-family:"Axiforma_Medium";
-    src:url("public/assets/AxiformaMedium.otf") format("opentype");
+    src:url("assets/AxiformaMedium.otf") format("opentype");
 }
 @font-face {
     font-family:"Axiforma_Bold";
-    src:url("public/assets/AxiformaBold.otf") format("opentype");
+    src:url("assets/AxiformaBold.otf") format("opentype");
 }
 
 * {

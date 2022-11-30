@@ -92,15 +92,48 @@ export default class Weather {
     defineDoctors(data) {
         console.log(data);
         let doctor;
-        if (data.current.temp_c < 5) {
+        if (data.current.temp_c < -6) {
           doctor = "1";
      
-        } if (data.current.temp_c < 10) {
-            doctor = "2";
-          }
-          if (data.current.temp_c < 15) {
+        }   else if (data.current.temp_c < -4) {
+                doctor = "2";
+            }
+            else if (data.current.temp_c < -2) {
             doctor = "3";
-          }
+            }
+            else if (data.current.temp_c < 0) {
+            doctor = "4";
+            }
+            else if (data.current.temp_c < 2) {
+            doctor = "5";
+            }
+            else if (data.current.temp_c < 4) {
+            doctor = "6";
+            }
+            else if (data.current.temp_c < 6) {
+            doctor = "7";
+            }
+            else if (data.current.temp_c < 8) {
+            doctor = "8";
+            }
+            else if (data.current.temp_c < 10) {
+            doctor = "9";
+            }
+            else if (data.current.temp_c < 12) {
+            doctor = "10";
+            }
+            else if (data.current.temp_c < 14) {
+            doctor = "11";
+            }
+            else if (data.current.temp_c < 16) {
+            doctor = "12";
+            }
+            else if (data.current.temp_c < 18) {
+            doctor = "13";
+            }
+            else if (data.current.temp_c < 20) {
+            doctor = "14";
+            }
          else {
           doctor = "12";
         }
@@ -117,9 +150,13 @@ export default class Weather {
           })
           .then((json) => {
             console.log(json);
-            let dwdata = json.incarnation;
+            let dwdata = json.id;
             console.log(dwdata);
             document.querySelector(".doctor__number").innerText = dwdata
+
+            let dwdata2 = "Watch the" + " " + json.incarnation + " " + "on BBC iPlayer";
+            console.log(dwdata2);
+            document.querySelector(".doctor__name").innerText = dwdata2
 
             const icon = `assets/${doctor}.png`;
             console.log(icon);
@@ -128,7 +165,7 @@ export default class Weather {
             document.querySelector(".doctor__img").appendChild(img);
             img.setAttribute(
                 'style',
-                'width: 20%; height: 20%;', 
+                'width: 30%;', 
               );
 
           })
